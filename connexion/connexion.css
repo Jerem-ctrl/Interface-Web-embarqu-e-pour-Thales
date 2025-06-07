@@ -1,0 +1,634 @@
+/* === Variables globales === */
+:root {
+  --bg-color: #0c1f3f;
+  --text-color: #ffffff;
+  --card-bg: #14263f;
+  --input-bg: #1c2b3a;
+  --button-bg: #5fd0ff;
+  --button-text: #0f1a2c;
+  --highlight-color: #5fd0ff;
+  --hover-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* === Page de connexion === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+body:not(.dashboard) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body.dashboard {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.login-container {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h2 {
+  text-align: center;
+  color: var(--button-bg);
+  margin-bottom: 1.5rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 0.5rem 0;
+  border: none;
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.forgot-wrapper {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.forgot-wrapper a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.button-col {
+  display: flex;
+  gap: 12px;
+  margin-top: 1rem;
+  text-decoration: none;
+}
+
+input[type="submit"],
+.photo-button {
+  flex: 1;
+  background: var(--button-bg);
+  color: var(--button-text);
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+input[type="submit"]:hover,
+.photo-button:hover {
+  background-color: #00aacc;
+}
+
+.error-message {
+  color: #ff4f4f;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+/* === Styles communs pour tableau de bord === */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.sidebar {
+  width: 260px;
+  background-color: #1a2535;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sidebar .top-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.sidebar h2 {
+  color: var(--button-bg);
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.sidebar form button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: block;
+  text-align: left;
+}
+.sidebar form button.logout {
+  background-color: #f25c5c;
+  color: white;
+}
+.storage {
+  font-size: 0.85rem;
+  margin-top: auto;
+  padding-top: 15px;
+  color: #ccc;
+}
+
+.main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.top-bar-left h1,
+.top-bar-right h1 {
+  font-size: 1.8rem;
+  color: var(--button-bg);
+  margin: 0;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+.search-bar .left-tools {
+  display: flex;
+  flex-grow: 1;
+  gap: 15px;
+  align-items: center;
+}
+.search-bar .right-tools {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-left: auto;
+  position: relative;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: white;
+  border: none;
+  min-width: 200px;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  justify-content: flex-start;
+  margin-bottom: 25px;
+}
+.actions button {
+  background-color: var(--button-bg);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--button-text);
+}
+.actions button[name="del"] {
+  background-color: #f25c5c;
+  color: white;
+}
+
+.filter-button {
+  background-color: var(--button-bg);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--button-text);
+  position: relative;
+  z-index: 3;
+}
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+.photo-card {
+  background-color: #1e2a38;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.photo-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #1a2535;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  padding: 5px 0;
+  z-index: 1000;
+  min-width: 160px;
+  white-space: nowrap;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 8px 15px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.dropdown-menu a:hover {
+  background-color: #2c3e50;
+}
+
+/* Correction affichage alignement dashboard */
+body.dashboard .main {
+  max-width: calc(100% - 260px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* === Popup filtre === */
+.popup-filtre {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+.popup-contenu {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+}
+
+.fermer-popup {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.popup-contenu input,
+.popup-contenu select {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--input-bg);
+  color: white;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.btn-valider {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* === Correctif spécifique pour les checkbox === */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: white;
+  white-space: nowrap;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--button-bg);
+}
+
+/* === Sidebar === */
+.sidebar {
+  width: 260px;
+  background-color: #1a2535;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar .top-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.sidebar h2 {
+  color: var(--button-bg);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  color: var(--text-color);
+  border-radius: 6px;
+  text-decoration: none;
+  position: relative;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  padding-left: 20px; /* ← ajoute ceci pour laisser la place à la barre bleue */
+}
+
+.sidebar-nav a::before {
+  content: '';
+  position: absolute;
+  left: 8px; /* ← décale un peu vers la droite */
+  top: 4px;
+  width: 4px;
+  height: calc(100% - 8px); /* pour pas qu'elle touche le haut/bas */
+  background-color: var(--highlight-color);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 4px;
+}
+
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+  background-color: var(--hover-bg);
+  color: var(--highlight-color);
+}
+
+.sidebar-nav a:hover::before,
+.sidebar-nav a.active::before {
+  opacity: 1;
+}
+
+.sidebar form button.logout {
+  background-color: #f25c5c;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.storage {
+  font-size: 0.85rem;
+  margin-top: auto;
+  padding-top: 15px;
+  color: #ccc;
+}
+
+.storage-module {
+  margin-top: 30px;
+}
+
+.storage-module h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: var(--text-color);
+}
+
+.progress-bar-container {
+  background-color: #ccc;
+  border-radius: 8px;
+  height: 8px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #5fd0ff;
+  width: 0%; /* sera rempli dynamiquement */
+  transition: width 0.4s ease;
+}
+
+.storage-text {
+  font-size: 0.85rem;
+  color: var(--text-color);
+}
+
+.account-container {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 30px auto;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.15);
+}
+
+.account-section {
+  margin-bottom: 30px;
+}
+
+.account-section h2 {
+  color: var(--highlight-color);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--highlight-color);
+  padding-bottom: 5px;
+}
+
+.info-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.1);
+}
+
+.info-line strong {
+  color: var(--highlight-color);
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-buttons button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.action-buttons button:hover {
+  background-color: #00aacc;
+}
+
+/* Style pour la page Mon Compte */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0c1f3f;
+    color: white;
+    padding: 20px;
+    margin: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+
+.button {
+    background-color: #5fd0ff;
+    color: #0f1a2c;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #00aacc;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #5fd0ff;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.photo-button,
+.photo-button:hover,
+.photo-button span,
+.photo-button:hover span {
+  text-decoration: none !important;
+}
+
+.favori-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: gold;
+  cursor: pointer;
+}
+.photo-card {
+  position: relative;
+}
+
+.zoom-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background-color: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.zoom-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  transition: transform 0.3s;
+}
+
+
+
+
